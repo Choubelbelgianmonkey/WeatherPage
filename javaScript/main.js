@@ -4,13 +4,19 @@ var dataView = new Vue({
 
         weatherData: [],
         
+        forecastData: [],
+        
         oneCity: [],
+        
+        cityID: [],
         
         iconID: [],
         
         iconWeather: [],
         
         search: "",
+        
+        view: "",
           
     },
 
@@ -36,27 +42,50 @@ var dataView = new Vue({
     },
 
     methods: {
+        
             getSpecifiedData(){
-                var url = "https://api.openweathermap.org/data/2.5/weather?q=" + this.search + "&appid=5da068a80dc44fdaa55bd5455946de9a&units=metric";
-                fetch(url)
+                    var urlToday = "https://api.openweathermap.org/data/2.5/weather?q=" + this.search +         "&appid=5da068a80dc44fdaa55bd5455946de9a&units=metric";
+
+    
+                fetch(urlToday)
                     .then((response) => response.json())
                     .then((response) => (dataView.oneCity = response))
-                    .then((response) => (dataView.iconID = response.weather[0].icon  ))
-                    .catch(function(error) {console.log(error)});
+                    .then((response) => (dataView.iconID = response.weather[0].icon))
+                    .then((response) => (dataView.cityID = response.id))
+                    .catch(function(error) {console.log(error)})
+
+            },
+                
+            getForecast(){
+                              
+                        var urlForecast = "https://api.openweathermap.org/data/2.5/forecast?id=" + dataView.oneCity.id + "&appid=5da068a80dc44fdaa55bd5455946de9a&units=metric";
+                    
+                fetch(urlForecast)
+                    .then((response) => response.json())
+                    .then((response) => (dataView.forecastData = response.list))
+                    .catch(function(error) {console.log(error)})
+                },
+        
+            changeView(x){
+                
+                this.view = x
+                
             },
         
             getSpecifiedIcon(){
 
-                http://openweathermap.org/img/w/10d.png
+//                http://openweathermap.org/img/w/10d.png
+//                https://api.openweathermap.org/img/w/
+//  no time to finish, but it sounds very complex
                 
-                                var url = "https://api.openweathermap.org/img/w/" + this.iconID + ".png";
+                                var url = "http://openweathermap.org/img/w/" + this.iconID + ".png";
                 fetch(url)
-                    .then((response)  => response.json())
-                    .then((response) => (dataView.iconWeather = response))
+                    .then((response) => (dataView.iconWeather = response.url))                
                     .catch(function(error) {console.log(error)});
                 
             },
-
+              
+        
     },
 
     computed: { 
@@ -72,5 +101,6 @@ var dataView = new Vue({
 
 });
 
-
+//
+//http://api.openweathermap.org/data/2.5/forecast?q=Brussels,us&mode=xml&appid=5da068a80dc44fdaa55bd5455946de9a
 
