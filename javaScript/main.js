@@ -17,6 +17,10 @@ var dataView = new Vue({
         search: "",
         
         view: "",
+        
+        contentView: true,
+        
+        disclaimerView: false,
           
     },
 
@@ -45,14 +49,29 @@ var dataView = new Vue({
         
             getSpecifiedData(){
                     var urlToday = "https://api.openweathermap.org/data/2.5/weather?q=" + this.search +         "&appid=5da068a80dc44fdaa55bd5455946de9a&units=metric";
-
     
                 fetch(urlToday)
                     .then((response) => response.json())
                     .then((response) => (dataView.oneCity = response))
                     .then((response) => (dataView.iconID = response.weather[0].icon))
                     .then((response) => (dataView.cityID = response.id))
-                    .catch(function(error) {console.log(error)})
+                    .then(dataView.contentView = true)
+                    .then(dataView.disclaimerView = false)
+                    .catch(function(error){
+                    
+                    dataView.contentView = false;
+                    dataView.disclaimerView = true;
+
+                     var disclaimer = document.getElementById("disclaimer");
+                    var content = document.createElement("p");   
+                    content.innerHTML = "No city matching this name. Please review you request.";
+                    
+                    console.log(disclaimer)
+                    
+                    disclaimer.appendChild(content);
+                    content.setAttribute("class", "beautifulText");
+   
+                          })
 
             },
                 

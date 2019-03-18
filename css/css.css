@@ -17,12 +17,23 @@ body{
 
 #top_page {
     display: flex;
-    margin-left: 20%;
-    margin-right: 20%;
+     justify-content: center;
+    text-align:center;
 }
 
 .display {
      display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.centerize {
+    text-align:center;
+}
+
+.beautifulText {
+    color:#9dd8af;
+    font-size: xx-large;
+    text-align:center;
+    
 }

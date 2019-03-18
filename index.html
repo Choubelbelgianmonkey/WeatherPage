@@ -22,7 +22,7 @@
 
 <body>
 
-    <div id="top_page">
+    <div id="top_page" >
 
         <h1>Weather around the Globe!</h1>
         <img src="./images/top_page_icon1.png" alt="" class="top_img">
@@ -32,28 +32,30 @@
 
     <div id="app">
 
-        <div>
+        <div  class="centerize">
             <input type="text" v-model="search" v-on:keyup.enter="getSpecifiedData(), getForecast()" placeholder="search your hometown!" />
         </div>
 
-        <div class="main_div">
+        <div class="main_div" class="centerize">
+            
+            
+            <div v-if="contentView == true">
 
             <div v-if="oneCity.length !== 0">
 
-                <h2>{{oneCity.name}}</h2>
-
-                <div>
+                <div class="centerize">
+                    
+                    <h2>{{oneCity.name}}</h2>
 
                     <h4>Current Weather:</h4>
-                    <p>Temperatures: {{oneCity.main.temp}} °C </p>
-                    <p>Humidity: {{oneCity.main.humidity}} %</p>
-                    <p>Wind Speed: {{oneCity.wind.speed}} km/h</p>
-                    <p>Weather type: {{oneCity.weather[0].description}}</p>
+                    <span>Expected Temperatures: {{oneCity.main.temp}} °C </span>
+                    <span>Humidity: {{oneCity.main.humidity}} %</span>
+                    <span>Wind Speed: {{oneCity.wind.speed}} km/h</span>
+                    <span>Weather type: {{oneCity.weather[0].description}}</span>
 
                 </div>
 
-
-                <div v-if="oneCity.length !== 0">
+                <div v-if="oneCity.length !== 0" class="centerize">
 
                     <button v-on:click="getForecast(), changeView('forecast')">
                         <h4>Forecast:</h4>
@@ -85,15 +87,20 @@
                     </div>
                 </div>
             </div>
+            
+            </div>
+            
+            <div id="disclaimer" v-show="disclaimerView == true">
+                
+                
+                
+            </div>
+            
+            
         </div>
     </div>
 
-
-
-
-
-
-
+<!--     -->
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="./javaScript/main.js"></script>
